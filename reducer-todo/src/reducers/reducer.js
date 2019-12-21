@@ -25,6 +25,37 @@ export const initialState = {
 
 export function reducer(state, action) {
     switch (action.type) {
-        return state;
+        case 'ADD_TASK':
+            return {
+                ...state, todos: [...state.todos,
+                {
+                    item: action.payload,
+                    completed: false,
+                    id: new Date()
+                }]
+            };
+        case 'TOGGLE_COMPLETED':
+            const toggleTodo = state.todos.map(todo => {
+                if (todo.id === action.payload.id) {
+                    return {...todo, completed: !todo.completed};
+                }
+                else {
+                    return todo;
+                }
+            });
+            return {
+                ...state,
+                todos: toggleTodo
+            }
+        case 'REMOVE_COMPLETED':
+            const removeCompleted = state.todos.filter(todo => {
+                return !todo.completed;
+            })
+            return {
+                ...state,
+                todos: removeCompleted
+            }
+        default:
+            return state;
     }
 }
