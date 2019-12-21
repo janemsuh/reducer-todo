@@ -9,7 +9,12 @@ function Todo({ todo, dispatch }) {
     };
 
     return (
-        <p onClick={toggleCompleted}>{todo.item}</p>
+        <div
+            className={`todo${todo.completed ? " completed" : ""}`}
+            onClick={toggleCompleted}
+        >
+            <p>{todo.item}</p>
+        </div>
     )
 }
 
